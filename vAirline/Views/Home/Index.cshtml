@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+}
+<a name="about"></a>
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h1>Welcome to vAirlines</h1>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <h3>In order to book a flight you must first log in or register an account</h3>
+                    }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("member"))
+                    {
+                        <h3>To book a flight please check the list of flights</h3>
+                    }
+                    <hr class="intro-divider">
+                    <ul class="list-inline intro-social-buttons">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a href="/Account/Login" class="btn btn-default btn-lg"><i class="fa fa-sign-in fa-fw"></i> <span class="network-name">Sign In</span></a>
+                            </li>
+                            <li>
+                                <a href="/Account/Register" class="btn btn-default btn-lg"><i class="fa fa-user fa-fw"></i> <span class="network-name">Register</span></a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("member"))
+                        {
+                            <li>
+                                <a href="/Flights/Index" class="btn btn-default btn-lg"><i class="fa fa-plane fa-fw"></i> <span class="network-name">Flights</span></a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+
+<a name="services"></a>
+<div class="content-section-a">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Catering Services for Extended Range and International Flights</h2>
+                <p class="lead">On our Intercontinental flights, passengers experience restaurant-quality service with carefully selected, high quality menus that are regularly changed in order to provide new options for regular travelers.</p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <img class="img-responsive" src="~/Content/img/catering.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+
+<div class="content-section-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Entertainment Services</h2>
+                <p class="lead">The Planet digital system and individual touch-screens are used for in-flight entertainment on our international flights on B777, A340, A330, B737-800 aircraft.Depending on the type of aircraft, passengers may choose their program either on their touch-screen or by using the remote control device attached to their seat.</p>
+            </div>
+            <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <img class="img-responsive" src="~/Content/img/entertainment.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+
+<div class="content-section-a">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Economy Class Seat</h2>
+                <p class="lead">
+                    Economy Seat pitch is 31-32 inch(78 cm).
+                    Maximum seatback recline, is 6 inches(15 cm).However, the seat pan also moves forward an additional 1.5 inches(3.5 cm)providing a total recline of 7.5 inches(19 cm).
+                    An onboard power receptacle on the front foot bar underneath the seat pan supplies energy for laptops and other electrical devices.
+                    A personal USB and Ethernet jack is also available at each seat.
+                </p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <img class="img-responsive" src="~/Content/img/seats.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+
+<a name="contact"></a>
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Connect to vAirline:</h2>
+            </div>
+            <div class="col-lg-6">
+                <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a href="#" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default btn-lg"><i class="fa fa-youtube fa-fw"></i> <span class="network-name">YouTube</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>

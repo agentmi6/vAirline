@@ -1,0 +1,41 @@
+﻿@model vAirline.Models.Airport
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div class="container getDown">
+    <h4>Airport Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AirportName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AirportName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AirportCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AirportCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AirportCountry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AirportCountry)
+        </dd>
+    </dl>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AirportID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })
+</p>
+</div>

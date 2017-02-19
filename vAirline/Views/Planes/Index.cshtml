@@ -1,0 +1,61 @@
+﻿@model IEnumerable<vAirline.Models.Plane>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container getDown">
+    <h2>Manage Planes</h2>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlaneModel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LeftSeat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MiddleSeat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RightSeat)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlaneModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LeftSeat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MiddleSeat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RightSeat)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.PlaneID }, new { @class = "btn btn-primary btn-xs" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.PlaneID }, new { @class = "btn btn-default btn-xs" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PlaneID }, new { @class = "btn btn-danger btn-xs" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

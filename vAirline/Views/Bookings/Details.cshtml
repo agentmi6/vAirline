@@ -1,0 +1,69 @@
+﻿@model vAirline.Models.Booking
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div class="container getDown">
+    <h4>Booking Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Flight.FlightCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Flight.FlightCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Passenger.PassengerFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Passenger.PassengerFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookingPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seat.SeatLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seat.SeatLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookingDateTime)
+        </dd>
+
+    </dl>
+@if (User.IsInRole("admin"))
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.BookingID }, new { @class = "btn btn-primary" }) |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })
+    </p>
+}
+</div>
+
+

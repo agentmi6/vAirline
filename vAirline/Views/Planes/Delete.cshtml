@@ -1,0 +1,49 @@
+﻿@model vAirline.Models.Plane
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="container getDown">
+    <h2>Delete Planes</h2>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Plane</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PlaneModel)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlaneModel)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LeftSeat)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LeftSeat)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MiddleSeat)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MiddleSeat)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.RightSeat)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.RightSeat)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })
+            </div>
+        }
+    </div>
+</div>

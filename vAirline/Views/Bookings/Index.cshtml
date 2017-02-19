@@ -1,0 +1,112 @@
+﻿@model IEnumerable<vAirline.Models.Booking>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@if (User.IsInRole("admin"))
+{
+     <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+<div class="container getDown">
+    <h2>Flight Bookings</h2>
+    <br>
+    <table class="table table-striped table-hover flightsTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Flight.FlightCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Passenger.PassengerFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Seat.SeatLocation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Seat.SeatNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingDateTime)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (User.IsInRole("admin"))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Flight.FlightCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Passenger.PassengerFullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Seat.SeatLocation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Seat.SeatNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingDateTime)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.BookingID }, new { @class = "btn btn-primary btn-xs" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "Details", new { id = item.BookingID }, new { @class = "btn btn-default btn-xs" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.BookingID }, new { @class = "btn btn-danger btn-xs" })
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    if (item.Passenger.PassengerUserName.Equals(ViewBag.PassengerUserName))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Flight.FlightCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Passenger.PassengerFullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookingPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Seat.SeatLocation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Seat.SeatNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookingDateTime)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "Details", new { id = item.BookingID }, new { @class = "btn btn-primary btn-xs" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.BookingID }, new { @class = "btn btn-danger btn-xs" })
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

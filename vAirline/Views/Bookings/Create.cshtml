@@ -1,0 +1,264 @@
+﻿@model vAirline.Models.BookingViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Create";
+}
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+
+<div class="container getDown">
+<h2>Flight Code - @Model.Flight.FlightCode</h2>
+    <div id="seatMap" class="col-md-12">
+        @{
+            var flight = Model.Flight;
+            var seats = Model.Flight.Seats;
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-4">
+                    <h4><strong>Left</strong></h4>
+                    @foreach (var item in seats)
+                    {
+                        if (item.SeatLocation.Equals("Left"))
+                        {
+                            var btnStyle = "map btn btn-block btn-default";
+
+                            if (!item.SeatAvailable)
+                            {
+                                btnStyle = "map btn btn-block btn-danger disabled";
+                            }
+
+                            <div class="col-md-3">
+                                <input type="button" value="@item.SeatNumber" class="@btnStyle" onclick="selectSeat('@item.SeatLocation', @item.SeatNumber, !@item.SeatAvailable)" />
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="col-md-4">
+                    <h4><strong>Middle</strong></h4>
+                    @foreach (var item in seats)
+                    {
+                        if (item.SeatLocation.Equals("Middle"))
+                        {
+                            var btnStyle = "map btn btn-block btn-default";
+
+                            if (!item.SeatAvailable)
+                            {
+                                btnStyle = "map btn btn-block btn-danger disabled";
+                            }
+
+                            <div class="col-md-3">
+                                <input type="button" value="@item.SeatNumber" class="@btnStyle" onclick="selectSeat('@item.SeatLocation', @item.SeatNumber, !@item.SeatAvailable)" />
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="col-md-4">
+                    <h4><strong>Right</strong></h4>
+                    @foreach (var item in seats)
+                    {
+                        if (item.SeatLocation.Equals("Right"))
+                        {
+                            var btnStyle = "map btn btn-block btn-default";
+
+                            if (!item.SeatAvailable)
+                            {
+                                btnStyle = "map btn btn-block btn-danger disabled";
+                            }
+
+                            <div class="col-md-3">
+                                <input type="button" value="@item.SeatNumber" class="@btnStyle" onclick="selectSeat('@item.SeatLocation', @item.SeatNumber, !@item.SeatAvailable)" />
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h3>Flight Ticket Booking</h3>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" style="text-align: center">
+                @for (int i = 1; i <= 3; i++)
+                {
+                    <div class=" control-label col-md-4">
+                        <h4>Booking #@i</h4>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                @for (int i = 1; i <= 3; i++)
+                {
+                    <label for="seatLocation-@i" class="control-label col-md-2">Seat Location</label>
+                    <div class="col-md-2">
+                        <input id="seatLocation-@i" name="seatLocation-@i" type="text" class="form-control" disabled />
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                @for (int i = 1; i <= Model.BookingSeats.Count(); i++)
+                {
+                    <label for="seatNumber-@i" class="control-label col-md-2">Seat Number</label>
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.BookingSeats[i - 1], new { htmlAttributes = new { @id = "seatNumber-" + i, @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                @for (int i = 1; i <= 3; i++)
+                {
+                    <label for="seatAvailable-@i" class="control-label col-md-2">Seat Available</label>
+                    <div class="col-md-2">
+                        <input id="seatAvailable-@i" name="seatAvailable-@i" type="text" class="form-control" disabled />
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                @for (int i = 1; i <= 3; i++)
+                {
+                    <div class="col-md-4 control-label">
+                        <a id="cancel-@i" class="btn btn-danger disabled cancelBooking">Cancel</a>
+                    </div>
+                }
+            </div>
+            <hr />
+            <h3>Checkout</h3>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(model => model.AmountPayable, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AmountPayable, new { htmlAttributes = new { @class = "form-control", @id = "amountPayable", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.AmountPayable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <h3>Passenger Details</h3>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PassportNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PassportNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Gender, Model.Genders, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="submitForm" type="submit" value="Create" class="btn btn-default disabled" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+
+    var bookingCount = 0;
+
+    $(document).ready(function () {
+
+        // Undo existing booking
+        $('.cancelBooking').click(function () {
+
+            var cancelId = $(this).prop('id');
+            var count = cancelId[7];
+            var seatNumber = $('#seatNumber-' + count).val();
+            var value = parseInt(count) + 1;
+            value = $('#seatNumber-' + value).val();
+
+            if (count != 3 && value.length > 0) {
+
+                alert("Please cancel the latest booking first.");
+            }
+            else {
+
+                $('#seatMap :input[value="' + seatNumber + '"]').toggleClass('btn-success');
+                $('#seatMap :input[value="' + seatNumber + '"]').toggleClass('btn-default');
+
+                $('#seatLocation-' + count).val('');
+                $('#seatNumber-' + count).val('');
+                $('#seatAvailable-' + count).val('');
+
+                $('#cancel-' + count).toggleClass('disabled');
+                bookingCount--;
+
+                var amountPayable = bookingCount * @flight.PricePerSeat;
+                $('#amountPayable').val(amountPayable);
+            }
+
+            if (bookingCount < 1 && !$('#submitForm').hasClass('disabled')) {
+
+                $('#submitForm').addClass('disabled');
+            }
+        });
+    });
+
+    // Click seat map button to select seat
+    function selectSeat(seatLocation, seatNumber, seatAvailable) {
+
+        // Change button color when it is selected
+        if (!(bookingCount > 2)) {
+
+            var seatButton = $('#seatMap :input[value="' + seatNumber + '"]');
+
+            if (!seatButton.hasClass('btn-success')) {
+
+                seatButton.toggleClass('btn-default');
+                seatButton.toggleClass('btn-success');
+            }
+            else {
+
+                alert("Please click the cancel button to remove the chosen seat.");
+            }
+
+            bookingCount++;
+
+            var amountPayable = bookingCount * @flight.PricePerSeat;
+            $('#amountPayable').val(amountPayable);
+
+            $('#seatLocation-' + bookingCount).val(seatLocation);
+            $('#seatNumber-' + bookingCount).val(seatNumber);
+            $('#seatAvailable-' + bookingCount).val(!seatAvailable);
+
+            $('#cancel-' + bookingCount).toggleClass('disabled');
+        }
+        else {
+
+            alert("You can only make 3 booking at maximum.");
+        }
+
+        if (bookingCount > 0 && $('#submitForm').hasClass('disabled')) {
+
+            $('#submitForm').removeClass('disabled');
+        }
+    }
+</script>

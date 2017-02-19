@@ -1,0 +1,162 @@
+﻿@model vAirline.Models.FlightViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<div class="container getDown">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "addFlightForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Create Flight</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartureAirportID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.DepartureAirportID, Model.Airports, htmlAttributes: new { @class = "form-control", @id = "departureAirport" })
+                    @Html.ValidationMessageFor(model => model.DepartureAirportID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartureDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.DepartureDateTime, new { htmlAttributes = new { @class = "form-control datetimepicker", @id = "departureDateTimePicker" } })
+                    @Html.ValidationMessageFor(model => model.DepartureDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ArrivalAirportID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.ArrivalAirportID, Model.Airports, htmlAttributes: new { @class = "form-control", @id = "arrivalAirport" })
+                    @Html.ValidationMessageFor(model => model.ArrivalAirportID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ArrivalDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.ArrivalDateTime, new { htmlAttributes = new { @class = "form-control datetimepicker", @id = "arrivalDateTimePicker" } })
+                    @Html.ValidationMessageFor(model => model.ArrivalDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PricePerSeat, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.PricePerSeat, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PricePerSeat, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LeftSeat, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.LeftSeat, new { htmlAttributes = new { @class = "form-control", @id = "leftSeat", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.LeftSeat, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MidSeat, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.MidSeat, new { htmlAttributes = new { @class = "form-control", @id = "midSeat", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.MidSeat, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RightSeat, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.RightSeat, new { htmlAttributes = new { @class = "form-control", @id = "rightSeat", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.RightSeat, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalSeatsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.TotalSeatsAvailable, new { htmlAttributes = new { @class = "form-control", @id = "totalSeat", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.TotalSeatsAvailable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PlaneID, "PlaneID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.PlaneID, Model.Planes, htmlAttributes: new { @class = "form-control", @id = "planeModels" })
+                    @Html.ValidationMessageFor(model => model.PlaneID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="Create" class="btn btn-primary" id="submitForm" />
+                </div>
+            </div>
+        </div>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquerypicker")
+}
+
+<script type="text/javascript">
+    var leftSeat;
+    var midSeat;
+    var rightSeat;
+    var totalSeat;
+    var planes;
+
+    $(document).ready(function () {
+
+        planes = @Html.Raw(
+            Json.Encode(
+                ((IEnumerable<vAirline.Models.Plane>)ViewBag.Planes).Select(plane => new
+                    {
+                        planeModel = plane.PlaneModel,
+                        leftSeat = plane.LeftSeat,
+                        midSeat = plane.MiddleSeat,
+                        rightSeat = plane.RightSeat
+                    })
+            )
+        );
+
+        updateSeat(0);
+
+        $('.datetimepicker').datetimepicker();
+        
+        $('#planeModels').change(function()
+        {
+            var count = this.value - 1;
+
+            updateSeat(count);
+        });
+
+        $('#submitForm').click(function()
+        {
+            if ($('#departureAirport').val() == $('#arrivalAirport').val())
+            {
+                alert("Departure and destination must not be the same.");
+            }
+           else
+            {
+                $('#addFlightForm').submit();
+            }
+        });
+    });
+
+    function updateSeat(count) {
+
+        leftSeat = planes[count].leftSeat;
+        midSeat = planes[count].midSeat;
+        rightSeat = planes[count].rightSeat;
+        totalSeat = leftSeat + midSeat + rightSeat;
+
+        $('#leftSeat').val(leftSeat);
+        $('#midSeat').val(midSeat);
+        $('#rightSeat').val(rightSeat);
+        $('#totalSeat').val(totalSeat);
+    }
+</script>

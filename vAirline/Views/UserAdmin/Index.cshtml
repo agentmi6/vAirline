@@ -1,0 +1,53 @@
+﻿@model vAirline.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="container getDown">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Roles)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Roles)
+            {
+                foreach (var user in item.Users)
+                {
+                    foreach (var usr in Model.Users)
+                    {
+                        if (user.UserId.Equals(usr.Id))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => usr.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = usr.Id }, new { @class = "btn btn-primary btn-xs" })
+                                    @Html.ActionLink("Details", "Details", new { id = usr.Id }, new { @class = "btn btn-default btn-xs" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = usr.Id }, new { @class = "btn btn-danger btn-xs" })
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<vAirline.Models.Passenger>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container getDown">
+    <h2>Manage Passengers List</h2>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PassengerFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PassengerPassportNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PassengerAge)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PassengerGender)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PassengerFullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PassengerPassportNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PassengerAge)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PassengerGender)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.PassengerID }, new { @class = "btn btn-primary btn-xs" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.PassengerID }, new { @class = "btn btn-default btn-xs" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PassengerID }, new { @class = "btn btn-danger btn-xs" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

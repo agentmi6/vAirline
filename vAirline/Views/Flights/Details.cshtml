@@ -1,0 +1,88 @@
+﻿@model vAirline.Models.Flight
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="container getDown">
+    <h4>Flight Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Plane.PlaneModel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Plane.PlaneModel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartureAirportCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartureAirportCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartureDateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartureDateTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ArrivalAirportCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArrivalAirportCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ArrivalDateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArrivalDateTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePerSeat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PricePerSeat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LeftSeat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LeftSeat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleSeat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MiddleSeat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RightSeat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RightSeat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSeatsAvailable)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalSeatsAvailable)
+        </dd>
+    </dl>
+    @if (User.IsInRole("admin"))
+    {
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.FlightID }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })
+        </p>
+    }
+    else
+    {
+        <p>
+            @Html.ActionLink("Book", "Create", "Bookings", new { id = Model.FlightID }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })
+        </p>
+    }
+</div>

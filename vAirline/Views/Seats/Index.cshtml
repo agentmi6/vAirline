@@ -1,0 +1,66 @@
+﻿@model IEnumerable<vAirline.Models.Seat>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container getDown">
+    <h2>Manage Seats</h2>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Flight.FlightCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Passenger.PassengerFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeatNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeatLocation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeatAvailable)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Flight.FlightCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Passenger.PassengerFullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SeatNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SeatLocation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SeatAvailable)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.SeatID }, new { @class = "btn btn-primary btn-xs" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.SeatID }, new { @class = "btn btn-default btn-xs" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.SeatID }, new { @class = "btn btn-danger btn-xs" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

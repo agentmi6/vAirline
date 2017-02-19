@@ -1,0 +1,50 @@
+﻿@model vAirline.Models.Passenger
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div class="container getDown">
+    <h4>Passenger Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PassengerFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassengerFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassengerPassportNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassengerPassportNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassengerAge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassengerAge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassengerGender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassengerGender)
+        </dd>
+
+    </dl>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PassengerID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })
+</p>
+</div>
